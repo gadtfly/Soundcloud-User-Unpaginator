@@ -1,3 +1,4 @@
+require_relative 'unfold'
 require_relative 'secrets'
 require 'soundcloud'
 
@@ -13,12 +14,10 @@ def get_page(path, options, page)
 end
 
 def concatenate_paginated(path, options = {})
-  page = 0
-  results = []
-  while results.size < (results += get_page(path, options, page)).size
-    page += 1
-  end
-  results
+  0.unfold do |page|
+    result = get_page(path, options, page)
+    result.empty? ? nil : [result, page+1]
+  end.flatten
 end
 
 def get_all_tracks(user_url)
