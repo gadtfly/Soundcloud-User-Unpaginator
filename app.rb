@@ -16,5 +16,5 @@ __END__
   - @tracks.each do |track|
     %li
       %h3
-        %a{href: track.download_url}= track.title
+        %a{href: track.authorized_stream_url, download: true}= track.title
       %p= track.description

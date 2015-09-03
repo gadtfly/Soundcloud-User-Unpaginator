@@ -23,5 +23,9 @@ end
 
 def get_all_tracks(user_url)
   user = client.get('/resolve', url: user_url)
-  concatenate_paginated("/users/#{user.id}/tracks")
+  concatenate_paginated("/users/#{user.id}/tracks").map(&method(:append_authorized_stream_url))
+end
+
+def append_authorized_stream_url(track)
+  track.merge(authorized_stream_url: "#{track.stream_url}?client_id=8e2ec365cc5150de0342371f981db03f")
 end
