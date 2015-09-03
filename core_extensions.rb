@@ -14,3 +14,9 @@ class Object
     end
   end
 end
+
+class Hash
+  def map_keys
+    Hash[self.map{|key, value| [yield(key), value]}]
+  end
+end

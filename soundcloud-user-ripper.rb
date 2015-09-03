@@ -1,4 +1,4 @@
-require_relative 'unfold'
+require_relative 'core_extensions'
 require_relative 'secrets'
 require 'soundcloud'
 
@@ -25,5 +25,5 @@ end
 
 def decorate(track)
   track.merge(authorized_stream_url: "#{track.stream_url}?client_id=8e2ec365cc5150de0342371f981db03f",
-              counts: Hash[track.select{|key, value| key.end_with?('count')}.map{|key, value| [key.split('_').first, value]}])
+              counts: track.select{|key, value| key.end_with?('count')}.map_keys{|key| key.split('_').first})
 end
