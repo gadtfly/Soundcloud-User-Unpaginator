@@ -15,14 +15,16 @@ __END__
 %table
   %thead
     %tr
+      %th id
       %th title
       %th description
       - @tracks.first.counts.keys.each do |count_key|
         %th= count_key
   %tbody
-    - @tracks.each do |track|
+    - @tracks.each do |track| 
       %tr
-        %th
+        %td= track.id
+        %td
           %a{href: track.authorized_stream_url, download: true}= track.title
         %td= track.description
         - track.counts.values.each do |count_value|
