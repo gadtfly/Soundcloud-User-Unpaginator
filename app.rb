@@ -12,9 +12,18 @@ __END__
 @@main
 %form{method: :get}
   %input{name: :url}
-%ul
-  - @tracks.each do |track|
-    %li
-      %h3
-        %a{href: track.authorized_stream_url, download: true}= track.title
-      = track.description
+%table
+  %thead
+    %tr
+      %th title
+      %th description
+      - @tracks.first.counts.keys.each do |count_key|
+        %th= count_key
+  %tbody
+    - @tracks.each do |track|
+      %tr
+        %th
+          %a{href: track.authorized_stream_url, download: true}= track.title
+        %td= track.description
+        - track.counts.values.each do |count_value|
+          %td= count_value

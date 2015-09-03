@@ -2,15 +2,13 @@ require_relative 'unfold'
 require_relative 'secrets'
 require 'soundcloud'
 
-MAX_LIMIT = 200
-CLIENT_ID = Secrets::Soundcloud::CLIENT_ID
-
 def client
-  SoundCloud.new(client_id: CLIENT_ID)
+  SoundCloud.new(client_id: Secrets::Soundcloud::CLIENT_ID)
 end
 
 def get_page(path, options, page)
-  client.get(path, options.merge(limit: MAX_LIMIT, offset: page * MAX_LIMIT))
+  max_limit = 200
+  client.get(path, options.merge(limit: max_limit, offset: page * max_limit))
 end
 
 def concatenate_paginated(path, options = {})
@@ -22,9 +20,10 @@ end
 
 def get_all_tracks(user_url)
   user = client.get('/resolve', url: user_url)
-  concatenate_paginated("/users/#{user.id}/tracks").map(&method(:append_authorized_stream_url))
+  concatenate_paginated("/users/#{user.id}/tracks").map(&method(:decorate))
 end
 
-def append_authorized_stream_url(track)
-  track.merge(authorized_stream_url: "#{track.stream_url}?client_id=8e2ec365cc5150de0342371f981db03f")
+def decorate(track)
+  track.merge(authorized_stream_url: "#{track.stream_url}?client_id=8e2ec365cc5150de0342371f981db03f",
+              counts: Hash[track.select{|key, value| key.end_with?('count')}.map{|key, value| [key.split('_').first, value]}])
 end
