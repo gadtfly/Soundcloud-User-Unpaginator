@@ -1,6 +1,6 @@
 # Soundcloud User Unpaginator
 
-Because paging through an infinite-scrolling index 20 things at a time to try to get to #250 is 
+Because paging through an infinite-scrolling index 20 things at a time to try to get to #250 is... unnecessarily unpleasant.
 
 Supply a `secrets.rb` like:
 
