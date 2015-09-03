@@ -17,4 +17,4 @@ __END__
     %li
       %h3
         %a{href: track.authorized_stream_url, download: true}= track.title
-      %p= track.description
+      = track.description
