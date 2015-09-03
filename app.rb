@@ -9,9 +9,14 @@ end
 
 __END__
 
+@@layout
+%html
+  %body
+    %form{method: :get}
+      %input{name: :url}
+    = yield
+
 @@main
-%form{method: :get}
-  %input{name: :url}
 %table
   %thead
     %tr
