@@ -21,18 +21,19 @@ __END__
     = yield
 
 @@main
-%table{data: {sortable: true}}
-  %thead
-    %tr
-      %th Title
-      %th{data: {sortable: 'false'}} Description
-      - @tracks.first.counts.keys.each do |count_key|
-        %th= count_key.capitalize
-  %tbody
-    - @tracks.each do |track| 
+- unless @tracks.empty?
+  %table{data: {sortable: true}}
+    %thead
       %tr
-        %td{data: {value: track.id}}
-          %a{href: track.authorized_stream_url, download: true}= track.title
-        %td= track.description
-        - track.counts.values.each do |count_value|
-          %td= count_value
+        %th Title
+        %th{data: {sortable: 'false'}} Description
+        - @tracks.first.counts.keys.each do |count_key|
+          %th= count_key.capitalize
+    %tbody
+      - @tracks.each do |track| 
+        %tr
+          %td{data: {value: track.id}}
+            %a{href: track.authorized_stream_url, download: true}= track.title
+          %td= track.description
+          - track.counts.values.each do |count_value|
+            %td= count_value
