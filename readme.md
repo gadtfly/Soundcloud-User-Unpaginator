@@ -6,7 +6,7 @@ Supply a `secrets.rb` like:
 
 ```ruby
 module Secrets
-  module Souncloud
+  module Soundcloud
     CLIENT_ID = # http://soundcloud.com/you/apps
   end
 end
