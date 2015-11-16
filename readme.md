@@ -2,21 +2,16 @@
 
 Because paging through an infinite-scrolling index 20 things at a time to try to get to #250 is... unnecessarily unpleasant.
 
-Supply a `secrets.rb` like:
-
-```ruby
-module Secrets
-  module Soundcloud
-    CLIENT_ID = # http://soundcloud.com/you/apps
-  end
-end
-```
-
-Run:
+Supply a [SOUNDCLOUD_CLIENT_ID](http://soundcloud.com/you/apps) environment variable, eg:
 
 ```bash
-bundle
-ruby app.rb
+SOUNDCLOUD_CLIENT_ID=yourkeyhere
+```
+
+Start the server:
+
+```bash
+rackup -p 4567
 ```
 
 Browse:

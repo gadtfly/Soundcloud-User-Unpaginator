@@ -1,9 +1,8 @@
 require_relative 'core_extensions'
-require_relative 'secrets'
 require 'soundcloud'
 
 def client
-  SoundCloud.new(client_id: Secrets::Soundcloud::CLIENT_ID)
+  SoundCloud.new(client_id: ENV['SOUNDCLOUD_CLIENT_ID'])
 end
 
 def get_page(path, options, page)
