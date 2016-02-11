@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 
 get '/' do
-  @tracks = params[:url] ? get_all_tracks(params[:url]) : []
+  @tracks = params[:url] ? get_all(params[:url], params[:subresource]) : []
   haml :main
 end
 
@@ -17,7 +17,10 @@ __END__
     %script{src: 'https://cdnjs.cloudflare.com/ajax/libs/sortable/0.6.0/js/sortable.min.js'}
   %body
     %form{method: :get}
-      %input{name: :url}
+      %label{for: :url} User Page URL:
+      %input{id: :url, name: :url}
+      %input{type: :submit, name: :subresource, value: :tracks}
+      %input{type: :submit, name: :subresource, value: :favorites}
     = yield
 
 @@main

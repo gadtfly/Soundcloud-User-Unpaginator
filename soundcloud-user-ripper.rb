@@ -17,12 +17,12 @@ def concatenate_paginated(path, options = {})
   end.flatten
 end
 
-def get_all_tracks(user_url)
+def get_all(user_url, subresource)
   user = client.get('/resolve', url: user_url)
-  concatenate_paginated("/users/#{user.id}/tracks").map(&method(:decorate))
+  concatenate_paginated("/users/#{user.id}/#{subresource}").map(&method(:decorate))
 end
 
 def decorate(track)
-  track.merge(authorized_stream_url: "#{track.stream_url}?client_id=8e2ec365cc5150de0342371f981db03f",
+  track.merge(authorized_stream_url: "#{track.stream_url}?client_id=#{ENV['SOUNDCLOUD_CLIENT_ID']}",
               counts: track.select{|key, value| key.end_with?('count')}.map_keys{|key| key.split('_').first})
 end
