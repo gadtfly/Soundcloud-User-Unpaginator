@@ -15,10 +15,12 @@ __END__
   %head
     %link{rel: :stylesheet, href: 'https://cdnjs.cloudflare.com/ajax/libs/sortable/0.6.0/css/sortable-theme-minimal.css'}
     %script{src: 'https://cdnjs.cloudflare.com/ajax/libs/sortable/0.6.0/js/sortable.min.js'}
+    :css
+      #url { width: 40em }
   %body
     %form{method: :get}
       %label{for: :url} User Page URL:
-      %input{id: :url, name: :url}
+      %input{id: :url, name: :url, value: params[:url] || ENV['SOUNDCLOUD_EXAMPLE_URL']}
       %input{type: :submit, name: :subresource, value: :tracks}
       %input{type: :submit, name: :subresource, value: :favorites}
     = yield
